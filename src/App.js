@@ -9,7 +9,7 @@ const App = () => {
     // Função para buscar arquivos do bucket
     const fetchFiles = async () => {
       try {
-        const response = await fetch('http://44.196.241.153:8080/files');
+        const response = await fetch('http://localhost:8080/files');
         if (!response.ok) {
           throw new Error('Erro ao buscar arquivos');
         }
@@ -24,34 +24,34 @@ const App = () => {
 
   async function handleFileUpload(event) {
     event.preventDefault();
-  
+
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
-  
+
     if (!file) {
       console.error('Nenhum arquivo selecionado');
       return;
     }
-  
+
     const formData = new FormData();
     formData.append('file', file);
-  
+
     try {
-      const response = await fetch('http://44.196.241.153:8080/upload', {
+      const response = await fetch('http://localhost:8080/upload', {
         method: 'POST',
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error('Erro na resposta da API');
       }
-  
+
       const result = await response.text();
       console.log('Resposta do servidor:', result);
       // Atualiza a lista de arquivos após o upload
       const fetchFiles = async () => {
         try {
-          const response = await fetch('http://44.196.241.153:8080/files');
+          const response = await fetch('http://localhost:8080/files');
           if (!response.ok) {
             throw new Error('Erro ao buscar arquivos');
           }
