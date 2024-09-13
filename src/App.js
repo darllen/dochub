@@ -9,7 +9,7 @@ const App = () => {
     // Função para buscar arquivos do bucket
     const fetchFiles = async () => {
       try {
-        const response = await fetch('http://54.237.83.234:8080/files');
+        const response = await fetch('http://54.173.165.199:8080/files');
         if (!response.ok) {
           throw new Error('Erro ao buscar arquivos');
         }
@@ -37,7 +37,7 @@ const App = () => {
     formData.append('file', file);
   
     try {
-      const response = await fetch('http://54.237.83.234:8080/upload', {
+      const response = await fetch('http://54.173.165.199:8080/upload', {
         method: 'POST',
         body: formData,
       });
@@ -51,7 +51,7 @@ const App = () => {
       // Atualiza a lista de arquivos após o upload
       const fetchFiles = async () => {
         try {
-          const response = await fetch('http://54.237.83.234:8080/files');
+          const response = await fetch('http://54.173.165.199:8080/files');
           if (!response.ok) {
             throw new Error('Erro ao buscar arquivos');
           }
