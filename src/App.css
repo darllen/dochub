@@ -28,6 +28,7 @@
   margin: 10px 0;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 }
 
 .file-item button {
@@ -41,4 +42,22 @@
 
 .file-item button:hover {
   background-color: #ff1a1a;
+  
+}
+
+.file-item a {
+  margin-right: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.download-icon i {
+  font-size: 18px;
+  color: #007bff;
+}
+
+.download-icon {
+  display: inline-block;
+  margin-left: 10px;
+  color: #007bff;
 }

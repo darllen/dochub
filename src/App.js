@@ -6,26 +6,26 @@ const App = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   useEffect(() => {
-    // Função para buscar arquivos do bucket
-    const fetchFiles = async () => {
-      try {
-        const response = await fetch('http://44.196.241.153:8080/files', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Erro ao buscar arquivos');
+    // Função para buscar metadados dos arquivos
+    const fetchFileMetadata = async () => {
+        try {
+            const response = await fetch('http://44.196.241.153:8080/files/metadata', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Erro ao buscar metadados dos arquivos');
+            }
+            const files = await response.json();
+            setUploadedFiles(files);
+        } catch (error) {
+            console.error('Erro ao buscar metadados dos arquivos:', error);
         }
-        const files = await response.json();
-        setUploadedFiles(files);
-      } catch (error) {
-        console.error('Erro ao buscar arquivos:', error);
-      }
     };
-    fetchFiles();
-  }, []);
+    fetchFileMetadata();
+}, []);
 
   async function handleFileUpload(event) {
     event.preventDefault();
@@ -56,7 +56,12 @@ const App = () => {
       // Atualiza a lista de arquivos após o upload
       const fetchFiles = async () => {
         try {
-          const response = await fetch('http://44.196.241.153:8080/files');
+          const response = await fetch('http://44.196.241.153:8080/files/metadata', { // Corrigido para o endpoint correto
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
           if (!response.ok) {
             throw new Error('Erro ao buscar arquivos');
           }
@@ -107,14 +112,17 @@ const App = () => {
         )}
       </div>
       <div className="uploaded-files">
-        <h2>Files in S3</h2>
+        <h2>Files in Dynamo</h2>
         {uploadedFiles.length === 0 ? (
           <p>No files available.</p>
         ) : (
           uploadedFiles.map((file, index) => (
             <div key={index} className="file-item">
-              <a href={file.url} target="_blank" rel="noopener noreferrer">
-                {file.key}
+              <h3 rel="noopener noreferrer">
+                {file.fileId}
+              </h3>
+              <a href={file.metadata} download={file.fileId} className="download-icon" title="Download">
+                <i className="fas fa-download"></i>
               </a>
             </div>
           ))
