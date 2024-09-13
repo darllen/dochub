@@ -9,7 +9,12 @@ const App = () => {
     // Função para buscar arquivos do bucket
     const fetchFiles = async () => {
       try {
-        const response = await fetch('http://localhost:8080/files');
+        const response = await fetch('http://44.196.241.153:8080/files', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         if (!response.ok) {
           throw new Error('Erro ao buscar arquivos');
         }
@@ -37,7 +42,7 @@ const App = () => {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://localhost:8080/upload', {
+      const response = await fetch('http://44.196.241.153:8080/upload', {
         method: 'POST',
         body: formData,
       });
@@ -51,7 +56,7 @@ const App = () => {
       // Atualiza a lista de arquivos após o upload
       const fetchFiles = async () => {
         try {
-          const response = await fetch('http://localhost:8080/files');
+          const response = await fetch('http://44.196.241.153:8080/files');
           if (!response.ok) {
             throw new Error('Erro ao buscar arquivos');
           }
